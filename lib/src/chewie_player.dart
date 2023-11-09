@@ -540,7 +540,7 @@ class ChewieController extends ChangeNotifier {
   final EdgeInsets controlsSafeAreaMinimum;
 
   /// Bottom distance in full screen
-  final double? fullScreenDistanceFromBottom;
+  double? fullScreenDistanceFromBottom;
 
   static ChewieController of(BuildContext context) {
     final chewieControllerProvider =
@@ -629,6 +629,10 @@ class ChewieController extends ChangeNotifier {
 
   void setSubtitle(List<Subtitle> newSubtitle) {
     subtitle = Subtitles(newSubtitle);
+  }
+
+  void setFullScreenDistanceFromBottom(double height) {
+    fullScreenDistanceFromBottom = height;
   }
 }
 
