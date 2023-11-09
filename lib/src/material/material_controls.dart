@@ -97,7 +97,11 @@ class _MaterialControlsState extends State<MaterialControls>
                 children: [
                   if (_displayBufferingIndicator)
                     const Center(
-                      child: CircularProgressIndicator(),
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(),
+                      ),
                     )
                   else
                     _buildHitArea(),
