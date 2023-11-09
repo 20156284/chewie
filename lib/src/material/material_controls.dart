@@ -46,6 +46,8 @@ class _MaterialControlsState extends State<MaterialControls>
   final barHeight = 48.0 * 1.5;
   final marginSize = 5.0;
 
+  double? fullScreenDistanceFromBottom;
+
   late VideoPlayerController controller;
   ChewieController? _chewieController;
 
@@ -82,43 +84,54 @@ class _MaterialControlsState extends State<MaterialControls>
         onTap: () => _cancelAndRestartTimer(),
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
-          child: Stack(
-            children: [
-              if (_displayBufferingIndicator)
-                const Center(
-                  child: CircularProgressIndicator(),
-                )
-              else
-                _buildHitArea(),
-              _buildActionBar(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  if (_subtitleOn)
-                    Transform.translate(
-                      offset: Offset(
-                        0.0,
-                        notifier.hideStuff
-                            ? (barHeight +
-                                    num.parse(
-                                      chewieController
-                                                  .fullScreenDistanceFromBottom ==
-                                              null
-                                          ? '0'
-                                          : chewieController
-                                              .fullScreenDistanceFromBottom!
-                                              .toString(),
-                                    )) *
-                                0.8
-                            : 0.0,
-                      ),
-                      child:
-                          _buildSubtitles(context, chewieController.subtitle!),
-                    ),
-                  _buildBottomBar(context),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth > constraints.maxHeight) {
+                fullScreenDistanceFromBottom = 0;
+              } else {
+                fullScreenDistanceFromBottom =
+                    chewieController.fullScreenDistanceFromBottom;
+              }
+
+              return Stack(
+                children: [
+                  if (_displayBufferingIndicator)
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  else
+                    _buildHitArea(),
+                  _buildActionBar(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      if (_subtitleOn)
+                        Transform.translate(
+                          offset: Offset(
+                            0.0,
+                            notifier.hideStuff
+                                ? (barHeight +
+                                        num.parse(
+                                          chewieController
+                                                      .fullScreenDistanceFromBottom ==
+                                                  null
+                                              ? '0'
+                                              : chewieController
+                                                  .fullScreenDistanceFromBottom!
+                                                  .toString(),
+                                        )) *
+                                    0.8
+                                : 0.0,
+                          ),
+                          child: _buildSubtitles(
+                              context, chewieController.subtitle!),
+                        ),
+                      _buildBottomBar(context),
+                    ],
+                  ),
                 ],
-              ),
-            ],
+              );
+            },
           ),
         ),
       ),
@@ -143,6 +156,9 @@ class _MaterialControlsState extends State<MaterialControls>
     final oldController = _chewieController;
     _chewieController = ChewieController.of(context);
     controller = chewieController.videoPlayerController;
+
+    fullScreenDistanceFromBottom =
+        chewieController.fullScreenDistanceFromBottom;
 
     if (oldController != chewieController) {
       _dispose();
@@ -269,13 +285,13 @@ class _MaterialControlsState extends State<MaterialControls>
       child: Container(
         height: barHeight +
             (chewieController.isFullScreen
-                ? chewieController.fullScreenDistanceFromBottom ?? 10.0
+                ? fullScreenDistanceFromBottom ?? 10.0
                 : 0),
         padding: EdgeInsets.only(
           left: 20,
           bottom: !chewieController.isFullScreen
               ? 10.0
-              : chewieController.fullScreenDistanceFromBottom ?? 0,
+              : fullScreenDistanceFromBottom ?? 0,
         ),
         child: SafeArea(
           bottom: chewieController.isFullScreen,
@@ -341,7 +357,7 @@ class _MaterialControlsState extends State<MaterialControls>
           child: Container(
             height: barHeight +
                 (chewieController.isFullScreen
-                    ? chewieController.fullScreenDistanceFromBottom ?? 0
+                    ? fullScreenDistanceFromBottom ?? 0
                     : 0),
             padding: const EdgeInsets.only(
               left: 6.0,
@@ -365,7 +381,7 @@ class _MaterialControlsState extends State<MaterialControls>
         child: Container(
           height: barHeight +
               (chewieController.isFullScreen
-                  ? chewieController.fullScreenDistanceFromBottom ?? 15.0
+                  ? fullScreenDistanceFromBottom ?? 15.0
                   : 0),
           margin: const EdgeInsets.only(right: 12.0),
           padding: const EdgeInsets.only(
@@ -477,7 +493,7 @@ class _MaterialControlsState extends State<MaterialControls>
       child: Container(
         height: barHeight +
             (chewieController.isFullScreen
-                ? chewieController.fullScreenDistanceFromBottom ?? 0
+                ? fullScreenDistanceFromBottom ?? 0
                 : 0),
         color: Colors.transparent,
         padding: const EdgeInsets.only(

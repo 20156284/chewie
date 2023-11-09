@@ -630,10 +630,6 @@ class ChewieController extends ChangeNotifier {
   void setSubtitle(List<Subtitle> newSubtitle) {
     subtitle = Subtitles(newSubtitle);
   }
-
-  void setFullScreenDistanceFromBottom(double height) {
-    fullScreenDistanceFromBottom = height;
-  }
 }
 
 class ChewieControllerProvider extends InheritedWidget {
