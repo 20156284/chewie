@@ -286,6 +286,7 @@ class ChewieController extends ChangeNotifier {
     this.hideControlsTimer = defaultHideControlsTimer,
     this.controlsSafeAreaMinimum = EdgeInsets.zero,
     this.fullScreenDistanceFromBottom,
+    this.fromBottom,
   }) : assert(
           playbackSpeeds.every((speed) => speed > 0),
           'The playbackSpeeds values must all be greater than 0',
@@ -334,6 +335,7 @@ class ChewieController extends ChangeNotifier {
     List<DeviceOrientation>? deviceOrientationsAfterFullScreen,
     Duration? progressIndicatorDelay,
     double? fullScreenDistanceFromBottom,
+    double? fromBottom,
     Widget Function(
       BuildContext,
       Animation<double>,
@@ -390,6 +392,7 @@ class ChewieController extends ChangeNotifier {
       progressIndicatorDelay:
           progressIndicatorDelay ?? this.progressIndicatorDelay,
       fullScreenDistanceFromBottom: fullScreenDistanceFromBottom,
+      fromBottom: fromBottom,
     );
   }
 
@@ -541,6 +544,9 @@ class ChewieController extends ChangeNotifier {
 
   /// Bottom distance in full screen
   double? fullScreenDistanceFromBottom;
+
+  /// Bottom distance in full screen
+  double? fromBottom;
 
   static ChewieController of(BuildContext context) {
     final chewieControllerProvider =

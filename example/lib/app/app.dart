@@ -147,6 +147,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
       showControlsOnInitialize: false,
       allowMuting: false,
 
+      fromBottom: 100,
+
       // Try playing around with some of these other options:
 
       // showControls: false,

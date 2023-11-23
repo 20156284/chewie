@@ -49,6 +49,8 @@ class _MaterialControlsState extends State<MaterialControls>
 
   double? fullScreenDistanceFromBottom;
 
+  double fromBottom = 0;
+
   late VideoPlayerController controller;
   ChewieController? _chewieController;
 
@@ -131,7 +133,11 @@ class _MaterialControlsState extends State<MaterialControls>
                           child: _buildSubtitles(
                               context, chewieController.subtitle!),
                         ),
-                      _buildBottomBar(context),
+
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: fromBottom),
+                        child: _buildBottomBar(context),
+                      ),
                     ],
                   ),
                 ],
@@ -164,6 +170,9 @@ class _MaterialControlsState extends State<MaterialControls>
 
     fullScreenDistanceFromBottom =
         chewieController.fullScreenDistanceFromBottom;
+
+    fromBottom =
+        chewieController.fromBottom??0;
 
     if (oldController != chewieController) {
       _dispose();
