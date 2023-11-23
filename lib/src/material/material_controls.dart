@@ -43,7 +43,8 @@ class _MaterialControlsState extends State<MaterialControls>
   Timer? _bufferingDisplayTimer;
   bool _displayBufferingIndicator = false;
 
-  final barHeight = 48.0 * 1.5;
+  final barHeight = 48.0;
+
   final marginSize = 5.0;
 
   double? fullScreenDistanceFromBottom;
@@ -290,7 +291,7 @@ class _MaterialControlsState extends State<MaterialControls>
         height: barHeight +
             (chewieController.isFullScreen
                 ? fullScreenDistanceFromBottom ?? 10.0
-                : 5),
+                : 0),
         padding: EdgeInsets.only(
           left: 20,
           bottom: !chewieController.isFullScreen
@@ -307,33 +308,42 @@ class _MaterialControlsState extends State<MaterialControls>
             children: [
               Flexible(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    if (chewieController.isLive)
-                      const Expanded(child: Text('LIVE'))
-                    else
-                      _buildPosition(iconColor),
-                    if (chewieController.allowMuting)
-                      _buildMuteButton(controller),
-                    const Spacer(),
+                    // if (chewieController.isLive)
+                    //   const Expanded(child: Text('LIVE'))
+                    // else
+                    //   _buildPosition(iconColor),
+                    // if (chewieController.allowMuting)
+                    //   _buildMuteButton(controller),
+                    // const Spacer(),
+                    // if (chewieController.allowFullScreen) _buildExpandButton(),
+
+                    _buildPositionStart(iconColor),
+                    const SizedBox(width: 5),
+                    _buildProgressBar(),
+                    const SizedBox(width: 10),
+                    _buildPositionEnd(iconColor),
                     if (chewieController.allowFullScreen) _buildExpandButton(),
+                    if (!chewieController.allowFullScreen)
+                      const SizedBox(width: 10),
                   ],
                 ),
               ),
               SizedBox(
                 height: chewieController.isFullScreen ? 15.0 : 0,
               ),
-              if (!chewieController.isLive)
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Row(
-                      children: [
-                        _buildProgressBar(),
-                      ],
-                    ),
-                  ),
-                ),
+              // if (!chewieController.isLive)
+              //   Expanded(
+              //     child: Container(
+              //       padding: const EdgeInsets.only(right: 20),
+              //       child: Row(
+              //         children: [
+              //           _buildProgressBar(),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
             ],
           ),
         ),
@@ -460,6 +470,30 @@ class _MaterialControlsState extends State<MaterialControls>
     if (_latestValue.isPlaying) {
       _startHideTimer();
     }
+  }
+
+  Widget _buildPositionStart(Color? iconColor) {
+    final position = _latestValue.position;
+    return Text(
+      '${formatDuration(position)} ',
+      style: const TextStyle(
+        fontSize: 14.0,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _buildPositionEnd(Color? iconColor) {
+    final duration = _latestValue.duration;
+    return Text(
+      '${formatDuration(duration)} ',
+      style: const TextStyle(
+        fontSize: 14.0,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    );
   }
 
   Widget _buildPosition(Color? iconColor) {

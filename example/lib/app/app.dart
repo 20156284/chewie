@@ -140,7 +140,12 @@ class _ChewieDemoState extends State<ChewieDemo> {
               ),
       ),
 
-      hideControlsTimer: const Duration(seconds: 1),
+      hideControlsTimer: const Duration(minutes: 1),
+
+
+      allowFullScreen: false,
+      showControlsOnInitialize: false,
+      allowMuting: false,
 
       // Try playing around with some of these other options:
 
@@ -155,8 +160,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
       //   color: Colors.grey,
       // ),
       // autoInitialize: true,
-
-      controlsSafeAreaMinimum: const EdgeInsets.only(bottom: 70),
     );
   }
 
