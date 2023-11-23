@@ -155,6 +155,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
       //   color: Colors.grey,
       // ),
       // autoInitialize: true,
+
+      controlsSafeAreaMinimum: const EdgeInsets.only(bottom: 70),
     );
   }
 

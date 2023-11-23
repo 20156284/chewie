@@ -294,7 +294,9 @@ class _MaterialControlsState extends State<MaterialControls>
         padding: EdgeInsets.only(
           left: 20,
           bottom: !chewieController.isFullScreen
-              ? 10.0
+              ? chewieController.controlsSafeAreaMinimum == EdgeInsets.zero
+                  ? 10.0
+                  : chewieController.controlsSafeAreaMinimum.bottom
               : fullScreenDistanceFromBottom ?? 0,
         ),
         child: SafeArea(
