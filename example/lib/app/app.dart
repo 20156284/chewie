@@ -143,11 +143,11 @@ class _ChewieDemoState extends State<ChewieDemo> {
       hideControlsTimer: const Duration(minutes: 1),
 
 
-      allowFullScreen: false,
+      // allowFullScreen: false,
       showControlsOnInitialize: false,
       allowMuting: false,
 
-      fromBottom: 100,
+      // fromBottom: 100,
 
       // Try playing around with some of these other options:
 

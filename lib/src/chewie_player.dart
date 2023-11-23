@@ -608,6 +608,11 @@ class ChewieController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setFromBottom(double height){
+    fromBottom = height;
+    notifyListeners();
+  }
+
   void togglePause() {
     isPlaying ? pause() : play();
   }
