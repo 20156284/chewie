@@ -67,9 +67,9 @@ class _MaterialControlsState extends State<MaterialControls>
   Widget build(BuildContext context) {
     if (_latestValue.hasError) {
       return chewieController.errorBuilder?.call(
-            context,
-            chewieController.videoPlayerController.value.errorDescription!,
-          ) ??
+        context,
+        chewieController.videoPlayerController.value.errorDescription!,
+      ) ??
           const Center(
             child: Icon(
               Icons.error,
@@ -118,24 +118,23 @@ class _MaterialControlsState extends State<MaterialControls>
                             0.0,
                             notifier.hideStuff
                                 ? (barHeight +
-                                        num.parse(
-                                          chewieController
-                                                      .fullScreenDistanceFromBottom ==
-                                                  null
-                                              ? '0'
-                                              : chewieController
-                                                  .fullScreenDistanceFromBottom!
-                                                  .toString(),
-                                        )) *
-                                    0.8
+                                num.parse(
+                                  chewieController
+                                      .fullScreenDistanceFromBottom ==
+                                      null
+                                      ? '0'
+                                      : chewieController
+                                      .fullScreenDistanceFromBottom!
+                                      .toString(),
+                                )) *
+                                0.8
                                 : 0.0,
                           ),
                           child: _buildSubtitles(
                               context, chewieController.subtitle!),
                         ),
-
                       Padding(
-                        padding:  EdgeInsets.only(bottom: fromBottom),
+                        padding: EdgeInsets.only(bottom: fromBottom),
                         child: _buildBottomBar(context),
                       ),
                     ],
@@ -170,9 +169,6 @@ class _MaterialControlsState extends State<MaterialControls>
 
     fullScreenDistanceFromBottom =
         chewieController.fullScreenDistanceFromBottom;
-
-    fromBottom =
-        chewieController.fromBottom??0;
 
     if (oldController != chewieController) {
       _dispose();
@@ -236,7 +232,7 @@ class _MaterialControlsState extends State<MaterialControls>
               builder: (context) => OptionsDialog(
                 options: options,
                 cancelButtonText:
-                    chewieController.optionsTranslation?.cancelButtonText,
+                chewieController.optionsTranslation?.cancelButtonText,
               ),
             );
           }
@@ -289,8 +285,8 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   AnimatedOpacity _buildBottomBar(
-    BuildContext context,
-  ) {
+      BuildContext context,
+      ) {
     final iconColor = Theme.of(context).textTheme.labelLarge!.color;
 
     return AnimatedOpacity(
@@ -361,8 +357,8 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   GestureDetector _buildMuteButton(
-    VideoPlayerController controller,
-  ) {
+      VideoPlayerController controller,
+      ) {
     return GestureDetector(
       onTap: () {
         _cancelAndRestartTimer();
@@ -600,10 +596,10 @@ class _MaterialControlsState extends State<MaterialControls>
       chewieController.toggleFullScreen();
       _showAfterExpandCollapseTimer =
           Timer(const Duration(milliseconds: 300), () {
-        setState(() {
-          _cancelAndRestartTimer();
-        });
-      });
+            setState(() {
+              _cancelAndRestartTimer();
+            });
+          });
     });
   }
 
@@ -669,6 +665,8 @@ class _MaterialControlsState extends State<MaterialControls>
       _displayBufferingIndicator = controller.value.isBuffering;
     }
 
+    fromBottom = chewieController.fromBottom ?? 0;
+
     setState(() {
       _latestValue = controller.value;
       _subtitlesPosition = controller.value.position;
@@ -701,7 +699,7 @@ class _MaterialControlsState extends State<MaterialControls>
               playedColor: Theme.of(context).colorScheme.secondary,
               handleColor: Theme.of(context).colorScheme.secondary,
               bufferedColor:
-                  Theme.of(context).colorScheme.background.withOpacity(0.5),
+              Theme.of(context).colorScheme.background.withOpacity(0.5),
               backgroundColor: Theme.of(context).disabledColor.withOpacity(.5),
             ),
       ),
