@@ -290,16 +290,15 @@ class _MaterialControlsState extends State<MaterialControls>
         height: barHeight +
             (chewieController.isFullScreen
                 ? fullScreenDistanceFromBottom ?? 10.0
-                : 0),
+                : 5),
         padding: EdgeInsets.only(
           left: 20,
           bottom: !chewieController.isFullScreen
-              ? chewieController.controlsSafeAreaMinimum == EdgeInsets.zero
-                  ? 10.0
-                  : chewieController.controlsSafeAreaMinimum.bottom
+              ? 10.0
               : fullScreenDistanceFromBottom ?? 0,
         ),
         child: SafeArea(
+          top: false,
           bottom: chewieController.isFullScreen,
           minimum: chewieController.controlsSafeAreaMinimum,
           child: Column(
